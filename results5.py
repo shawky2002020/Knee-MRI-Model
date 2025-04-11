@@ -3,7 +3,7 @@ from pathlib import Path
 import torch
 import matplotlib.pyplot as plt
 from torchvision import transforms
-from modelBackbone import modelBackbone , TransferLearningModel
+from app.modelBackbone import modelBackbone , TransferLearningModel
 from dataloaderPngT import class_names
 from typing import List
 import numpy as np
