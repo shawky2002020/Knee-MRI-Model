@@ -6,3 +6,4 @@ __pycache__/
 .env
 output_results/
 /data_set/
+*.pth
