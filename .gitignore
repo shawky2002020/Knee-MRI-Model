@@ -7,3 +7,4 @@ __pycache__/
 output_results/
 /data_set/
 *.pth
+/sample/
