@@ -7,7 +7,7 @@ import base64  # Add this import for decoding base64 images
 
 from app.services.diagnostic_service import DiagnosticService
 from .models import ModelLoader
-from .schemas import PredictionResponse
+from .schemas import PredictionResponse, FinalResponse
 import os
 
 app = FastAPI()
@@ -50,18 +50,10 @@ async def process_mri(
         diagnostic_service = DiagnosticService(user_id=user_id)
 
         # Process the image
-        result = diagnostic_service.process_image(temp_file_path, view_type)
+        response = diagnostic_service.process_image(temp_file_path, view_type)
 
-        # Save the report if user_id is provided
-        report_url = diagnostic_service.save_report() if user_id else None
-        mri_scan = diagnostic_service.mri_scan
-
-        # Ensure the response is JSON-serializable
-        return {
-            "result": result,
-            "report_url": report_url,
-            "mri_scan": mri_scan
-        }
+        # Return the FinalResponse
+        return response.dict()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
     finally:
