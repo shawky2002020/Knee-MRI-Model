@@ -8,3 +8,4 @@ output_results/
 /data_set/
 *.pth
 /sample/
+.env
