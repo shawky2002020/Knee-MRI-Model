@@ -6,6 +6,7 @@ __pycache__/
 .env
 output_results/
 /data_set/
+/model_files
 *.pth
 /sample/
 .env
