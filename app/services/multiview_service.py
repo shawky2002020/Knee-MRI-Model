@@ -41,10 +41,10 @@ class MultiViewDiagnosticService:
         self.model_loader = ModelLoader()
         
         # Logistic regression coefficients
-        self.logreg_acl_weights = np.array([0.3, 0.3, 0.5])  # [axial, coronal, sagittal]
-        self.logreg_meniscus_weights = np.array([0.3, 0.5, 0.3])  # [axial, coronal, sagittal]
-        self.acl_intercept = -0.5
-        self.meniscus_intercept = -0.5
+        self.logreg_acl_weights = np.array([0.415, 0.257, 0.328])
+        self.logreg_meniscus_weights = np.array([0.375, 0.298, 0.327])
+        self.acl_intercept = -0.46
+        self.meniscus_intercept = -0.62
     
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
@@ -93,6 +93,11 @@ class MultiViewDiagnosticService:
         # Apply decision thresholds
         acl_result = 1 if final_acl_prob < 0.51 else 0
         meniscus_result = 1 if final_meniscus_prob < 0.51 else 0
+
+        if final_acl_prob < final_meniscus_prob - 0.09 and final_meniscus_prob > 0.48:
+            meniscus_result = 0
+        elif final_meniscus_prob < final_acl_prob - 0.1 and final_acl_prob >= 0.49:
+            acl_result = 0
         
         # Determine final diagnosis
         if acl_result and meniscus_result:
