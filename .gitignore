@@ -6,7 +6,8 @@ __pycache__/
 .env
 output_results/
 /data_set/
-/model_files
-*.pth
 /sample/
 .env
+results8.py
+trainBackbone.py
+heatmap_service.py
